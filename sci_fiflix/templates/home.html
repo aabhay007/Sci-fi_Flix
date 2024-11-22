@@ -1,0 +1,292 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Netflix Clone - Sci-Fi Theme
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://registry.npmmirror.com/vue/3.3.11/files/dist/vue.global.js">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .hover-zoom:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slider {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-item {
+            min-width: 16.66%;
+            box-sizing: border-box;
+            padding: 0 10px;
+        }
+
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .slider-button.left {
+            left: 10px;
+        }
+
+        .slider-button.right {
+            right: 10px;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="min-h-screen flex flex-col" id="app">
+   <header class="bg-black p-4 flex justify-between items-center fade-in">
+    <div class="text-2xl font-bold flex items-center">
+     <img alt="Logo of Sci-FiFlix with a futuristic design" class="h-8 w-8 mr-2" height="50" src="https://storage.googleapis.com/a1aa/image/G4s0ZEeBGoQvb6D7OTVI4OuxP1JX1FCnM1h91dMQXMF4Hu5JA.jpg" width="50"/>
+     Sci-FiFlix
+    </div>
+    <nav class="space-x-4">
+     <a class="hover:text-gray-400" href="#">
+      Home
+     </a>
+     <a class="hover:text-gray-400" href="#">
+      Series
+     </a>
+     <a class="hover:text-gray-400" href="#">
+      Movies
+     </a>
+     <a class="hover:text-gray-400" href="#">
+      New &amp; Popular
+     </a>
+     <a class="hover:text-gray-400" href="#">
+      My List
+     </a>
+    </nav>
+    <div class="space-x-4">
+     <i class="fas fa-search hover:text-gray-400">
+     </i>
+     <i class="fas fa-bell hover:text-gray-400">
+     </i>
+     <i class="fas fa-user-circle hover:text-gray-400">
+     </i>
+    </div>
+   </header>
+   <main class="flex-1 p-4">
+    <section class="mb-8 fade-in">
+     <h2 class="text-3xl font-bold mb-4">
+      Trending Now
+     </h2>
+     <div class="slider">
+      <button @click="prevSlide('trending')" class="slider-button left">
+       <i class="fas fa-chevron-left">
+       </i>
+      </button>
+      <div :style="{ transform: `translateX(-${currentSlide.trending * 100 / 6}%)` }" class="slider-track">
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a futuristic cityscape with flying cars and neon lights" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/KT3QaDHTRU5JENQvuBzD2mGuScl3uvKjPoUyEK55ErmAD38E.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Futuristic City
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a spaceship flying through a wormhole with vibrant colors" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/zvaSR5Rm4b7mOF6n6Tz0SeS2SqEZsswHiqZyVAbgbDf6LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Wormhole Journey
+        </div>
+       </div>
+<div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a spaceship flying through a wormhole with vibrant colors" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/zvaSR5Rm4b7mOF6n6Tz0SeS2SqEZsswHiqZyVAbgbDf6LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Wormhole Journey
+        </div>
+       </div>
+<div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a spaceship flying through a wormhole with vibrant colors" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/zvaSR5Rm4b7mOF6n6Tz0SeS2SqEZsswHiqZyVAbgbDf6LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Wormhole Journey
+        </div>
+       </div>
+<div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a spaceship flying through a wormhole with vibrant colors" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/zvaSR5Rm4b7mOF6n6Tz0SeS2SqEZsswHiqZyVAbgbDf6LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Wormhole Journey
+        </div>
+       </div>
+<div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a spaceship flying through a wormhole with vibrant colors" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/zvaSR5Rm4b7mOF6n6Tz0SeS2SqEZsswHiqZyVAbgbDf6LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Wormhole Journey
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a robot uprising in a dystopian world" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/JgoVeWbLl73tMCG3n9xPK9vzAwiwkcaSeoypLK6ha6a2LczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Robot Uprising
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of an alien invasion with massive spaceships over a city" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/7PkUUXfSlGyVf0POYtLwYXmF5OJiHqyZLSIA3bcAFrofX4mnA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Alien Invasion
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a time traveler in a futuristic suit" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/afL7AO6YssXfJkXvhG7lvDcLUPKcJXnfp4G0Ao4hwYI6X4mnA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Time Traveler
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a cyberpunk hacker with neon lights in the background" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/HmyxY0xGd47SGlYlLIMca95FGuyhDHGIzrsXp2MEav0eFu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Cyberpunk Hacker
+        </div>
+       </div>
+      </div>
+      <button @click="nextSlide('trending')" class="slider-button right">
+       <i class="fas fa-chevron-right">
+       </i>
+      </button>
+     </div>
+    </section>
+    <section class="mb-8 fade-in">
+     <h2 class="text-3xl font-bold mb-4">
+      New Releases
+     </h2>
+     <div class="slider">
+      <button @click="prevSlide('newReleases')" class="slider-button left">
+       <i class="fas fa-chevron-left">
+       </i>
+      </button>
+      <div :style="{ transform: `translateX(-${currentSlide.newReleases * 100 / 6}%)` }" class="slider-track">
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a space exploration mission with astronauts on a distant planet" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/hg1EPovVoC5aMFgz34y5qLE6wKYZnLQSAA5llmtvRcmfFu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Space Exploration
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a futuristic city with advanced technology and flying vehicles" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/7dycufKUn1VHQCJMsnOh2EIDaJ7PPHdJhYuJyrSNDXoDGu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Tech City
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a group of rebels fighting against a totalitarian regime in a dystopian future" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/fX2KovkrmOSdVCaAPSQNTCnoOAzGWsqj3NHViLtoXRtAGu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Rebel Fighters
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a scientist discovering a parallel universe" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/6gueolBDpQz4IqAktxRmZiGOU5qCS6x6QEjz2PptPRR8Fu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Parallel Universe
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a futuristic racing event with high-speed vehicles" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/YCncHt4c3568EtxGg3ScBRJTGEAUkJe03EgrSy7kSlbCGu5JA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Futuristic Racing
+        </div>
+       </div>
+       <div class="slider-item relative hover-zoom hover-glow">
+        <img alt="Poster of a post-apocalyptic world with survivors fighting for resources" class="w-full" height="300" src="https://storage.googleapis.com/a1aa/image/7HJMPE2G3OI4Cp6Fc4Joq6dkYWMNdeZW7tluqidfaoxFMczTA.jpg" width="200"/>
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+         Post-Apocalyptic Survival
+        </div>
+       </div>
+      </div>
+      <button @click="nextSlide('newReleases')" class="slider-button right">
+       <i class="fas fa-chevron-right">
+       </i>
+      </button>
+     </div>
+    </section>
+   </main>
+   <footer class="bg-black p-4 text-center fade-in">
+    <p>
+     © 2023 Sci-FiFlix. All rights reserved.
+    </p>
+   </footer>
+  </div>
+  <script>
+   const { createApp, ref } = Vue;
+        createApp({
+            setup() {
+                const currentSlide = ref({
+                    trending: 0,
+                    newReleases: 0
+                });
+
+                const nextSlide = (category) => {
+                    if (category === 'trending') {
+                        currentSlide.value.trending = (currentSlide.value.trending + 1) % 6;
+                    } else if (category === 'newReleases') {
+                        currentSlide.value.newReleases = (currentSlide.value.newReleases + 1) % 6;
+                    }
+                };
+
+                const prevSlide = (category) => {
+                    if (category === 'trending') {
+                        currentSlide.value.trending = (currentSlide.value.trending - 1 + 6) % 6;
+                    } else if (category === 'newReleases') {
+                        currentSlide.value.newReleases = (currentSlide.value.newReleases - 1 + 6) % 6;
+                    }
+                };
+
+                setInterval(() => {
+                    nextSlide('trending');
+                    nextSlide('newReleases');
+                }, 5000);
+
+                return {
+                    currentSlide,
+                    nextSlide,
+                    prevSlide
+                };
+            }
+        }).mount('#app');
+  </script>
+ </body>
+</html>
