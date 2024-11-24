@@ -6,6 +6,7 @@ from .forms import LoginForm, OTPForm
 from django.core.mail import send_mail
 from django.conf import settings
 from twilio.rest import Client
+from django.contrib.auth import logout
 
 def send_otp(user):
     otp = OTP.generate_otp()
@@ -70,6 +71,11 @@ def otp_verify_view(request):
         form = OTPForm()
 
     return render(request, 'otp_verify.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('/')
 
 def home(request):
     trending_movies = Movie.objects.filter(is_trending=True)

@@ -7,17 +7,17 @@
     <link
       rel="icon"
       type="image"
-      href="https://s3.ezgif.com/tmp/ezgif-3-0fa677eada.webp"
+      href="https://i.ibb.co/095NSCg/scififlix-logo.webp"
     />
     <meta
       property="og:image"
-      content="https://s3.ezgif.com/tmp/ezgif-3-0fa677eada.webp"
+      content="https://i.ibb.co/095NSCg/scififlix-logo.webp"
     />
     <meta
       name="description"
       content="Sci-Fi Flix is in development stage right now, If you want to contribute feel free to contact. Email-Address: abhay007official@gmail.com"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.15"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       rel="stylesheet"
@@ -35,12 +35,12 @@
 
       .hover-zoom:hover {
         transform: scale(1.05);
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.5s ease-in-out;
       }
 
       .hover-glow:hover {
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        transition: box-shadow 0.3s ease-in-out;
+        transition: box-shadow 0.9s ease-in-out;
       }
 
       .fade-in {
@@ -64,7 +64,7 @@
 
       .slider-track {
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        transition: transform 1s ease-in-out;
       }
 
       .slider-item {
@@ -102,22 +102,36 @@
             alt="Logo of Sci-FiFlix with a futuristic design"
             class="h-8 w-8 mr-2"
             height="50"
-            src="https://i.ibb.co/NY2PMrk/scififlix-logo.png"
+            src="https://i.ibb.co/095NSCg/scififlix-logo.webp"
             width="50"
           />
           Sci-Fi Flix
         </div>
         <nav class="space-x-4">
-          <a class="hover:text-gray-400" href="#"> Home </a>
-          <a class="hover:text-gray-400" href="#"> Series </a>
-          <a class="hover:text-gray-400" href="#"> Movies </a>
-          <a class="hover:text-gray-400" href="#"> New &amp; Popular </a>
-          <a class="hover:text-gray-400" href="#"> My List </a>
+          <a class="hover:text-gray-400" href=""> Home </a>
+          <a class="hover:text-gray-400" href="/series"> Series </a>
+          <a class="hover:text-gray-400" href="/movies"> Movies </a>
+          <a class="hover:text-gray-400" href="/my-list"> My List </a>
         </nav>
         <div class="space-x-4">
-          <i class="fas fa-search hover:text-gray-400"> </i>
-          <i class="fas fa-bell hover:text-gray-400"> </i>
-          <i class="fas fa-user-circle hover:text-gray-400"> </i>
+          {% if user.is_authenticated %}
+            <i class="fas fa-search hover:text-gray-400"> </i>
+            <i class="fas fa-bell hover:text-gray-400"> </i>
+            <i class="fas fa-user-circle hover:text-gray-400"> </i>
+            <a
+            href="{% url 'logout' %}"
+            class="bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded transition-all duration-300"
+          >
+            Logout{{user}}
+          </a>
+          {% else %}
+            <a
+              href="{% url 'login' %}"
+              class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded transition-all duration-300"
+            >
+              Login {{user}}
+            </a>
+          {% endif %}
         </div>
       </header>
       <main class="flex-1 p-4">
