@@ -1,5 +1,84 @@
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Send OTP</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - Sci-Fi Flix</title>
+    <link
+      rel="icon"
+      type="image"
+      href="https://i.ibb.co/095NSCg/scififlix-logo.webp"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.15"></script>
+    <style>
+      body {
+        font-family: "Orbitron", sans-serif;
+        background-color: #000;
+        color: #fff;
+      }
+
+      input {
+        background-color: #111;
+        color: #fff;
+        border: 1px solid #333;
+        padding: 10px 10px !important;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      input:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 8px #4f46e5;
+        outline: none;
+      }
+
+      button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col justify-center items-center">
+      <header class="bg-black p-4 w-full">
+        <div class="text-2xl font-bold flex justify-center items-center">
+          <img
+            alt="Logo of Sci-Fi Flix"
+            class="h-8 w-8 mr-2"
+            height="50"
+            src="https://i.ibb.co/095NSCg/scififlix-logo.webp"
+            width="50"
+          />
+          Sci-Fi Flix
+        </div>
+      </header>
+
+      <main class="w-full max-w-md p-8 bg-black bg-opacity-50 rounded-lg shadow-md fade-in">
+        <p class="text-2xl font-bold text-center mb-6">Enter Your Email</p>
+        <form method="POST" class="space-y-4">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-all duration-300"
+          >
+            Send OTP
+          </button>
+        </form>
+      </main>
+
+      <footer class="bg-black p-4 w-full text-center mt-8">
+        <p>© 2023 Sci-Fi Flix. All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
+</html>
