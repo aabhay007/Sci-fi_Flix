@@ -13,7 +13,7 @@ ScifiFlix is a Django-based web application that allows users to explore and dis
 
 - Django 5.1.2
 - SQLite (default database)
-- Twilio for SMS notifications (optional)
+- Twilio for SMS notifications (optional)   pip install twilio sendgrid
 - SMTP for email notifications (using Gmail)
 
 ## Installation
