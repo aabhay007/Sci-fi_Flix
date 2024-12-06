@@ -114,7 +114,7 @@
           <a class="hover:text-gray-400" href="/my-list"> My List </a>
         </nav>
         <div class="space-x-4">
-          {% if user.is_authenticated %}
+          {% if is_authenticated %}
             <i class="fas fa-search hover:text-gray-400"> </i>
             <i class="fas fa-bell hover:text-gray-400"> </i>
             <i class="fas fa-user-circle hover:text-gray-400"> </i>
@@ -129,7 +129,7 @@
               href="{% url 'login' %}"
               class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded transition-all duration-300"
             >
-              Login 
+              Login {{is_authenticated}}
             </a>
           {% endif %}
         </div>

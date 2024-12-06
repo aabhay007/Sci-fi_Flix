@@ -7,6 +7,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from twilio.rest import Client
 from django.contrib.auth import logout
+from django.contrib.auth import login
+from django.contrib.auth.hashers import make_password
 
 def send_otp(user):
     otp = OTP.generate_otp()
@@ -35,19 +37,28 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             identifier = form.cleaned_data['identifier']
-            user = User.objects.filter(email=identifier).first() or User.objects.filter(phone_number=identifier).first()
+            is_email = '@' in identifier
+
+            # Fetch user by email or phone number
+            user = User.objects.filter(email=identifier if is_email else None).first() or \
+                   User.objects.filter(phone_number=identifier if not is_email else None).first()
 
             if not user:
-                # Register new user
-                user = User.objects.create(email=identifier if '@' in identifier else None,
-                                           phone_number=identifier if '@' not in identifier else None)
+                # Create a partially registered user
+                user = User.objects.create(
+                    email=identifier if is_email else None,
+                    phone_number=identifier if not is_email else None
+                )
 
-            send_otp(user)
+            # Save the identifier in the session for OTP verification
             request.session['user_id'] = user.id
+            request.session['identifier'] = identifier
+            send_otp(user)
             return redirect('otp_verify')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 def otp_verify_view(request):
     user_id = request.session.get('user_id')
@@ -63,14 +74,18 @@ def otp_verify_view(request):
             otp = OTP.objects.filter(user=user, code=otp_code).first()
 
             if otp and otp.is_valid():
+                # Log the user in
+                login(request, user)  # This is critical for maintaining the session
                 messages.success(request, 'Login successful!')
-                return redirect('home')  # Replace with your dashboard or home page
+                return redirect('home')
+
             else:
                 messages.error(request, 'Invalid or expired OTP.')
     else:
         form = OTPForm()
 
     return render(request, 'otp_verify.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
@@ -84,5 +99,13 @@ def home(request):
     context = {
         'trending_movies': trending_movies,
         'new_releases': new_releases,
+        'user': request.user,  # Pass the user to the template
+        'is_authenticated': request.user.is_authenticated,  # Check if the user is logged in
     }
+
+    # Debugging logs (optional, for development)
+    print(f"User: {request.user}")
+    print(f"Is Authenticated: {request.user.is_authenticated}")
+
     return render(request, 'home.html', context)
+

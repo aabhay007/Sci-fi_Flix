@@ -135,3 +135,13 @@ EMAIL_HOST_PASSWORD = 'tfsv jqsi ygrn cwog'
 TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
 TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
 TWILIO_PHONE_NUMBER = '+123456789'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Default session backend
+SESSION_COOKIE_AGE = 1209600  # (Optional) Session expires in 2 weeks
+SESSION_SAVE_EVERY_REQUEST = True  # Save session data for every request
+
+AUTH_USER_MODEL = 'sci_fiflix.User'

@@ -1,25 +1,50 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import random
 
 class UserManager(BaseUserManager):
-    def create_user(self, phone_number=None, email=None, **extra_fields):
+    def create_user(self, phone_number=None, email=None, password=None, **extra_fields):
         if not phone_number and not email:
             raise ValueError('The user must have a phone number or email address.')
+        if not password:
+            raise ValueError('Users must have a password')
+
         user = self.model(phone_number=phone_number, email=email, **extra_fields)
+        user.set_password(password)  # Hash the password
         user.save(using=self._db)
         return user
 
-class User(AbstractBaseUser):
+    def create_superuser(self, phone_number=None, email=None, password=None, **extra_fields):
+        """
+        Create and return a superuser with the given phone number, email, and password.
+        """
+        if not email:
+            raise ValueError('Superusers must have an email address')
+        if not password:
+            raise ValueError('Superusers must have a password')
+
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        user = self.create_user(phone_number=phone_number, email=email, password=password, **extra_fields)
+        user.save(using=self._db)
+        return user
+
+
+class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=15, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True, blank=True, null=True)
 
-    USERNAME_FIELD = 'email'
+    is_staff = models.BooleanField(default=False)  # Admin access
+    is_active = models.BooleanField(default=True)  # Active status
+
+    USERNAME_FIELD = 'email'  # Email is used as the username field
+    REQUIRED_FIELDS = ['phone_number']  # 'email' is removed from here
+
     objects = UserManager()
 
     def __str__(self):
         return self.email or self.phone_number
-
 class OTP(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=6)
