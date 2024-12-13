@@ -1,5 +1,4 @@
 # ScifiFlix
-
 ScifiFlix is a Django-based web application that allows users to explore and discover science fiction movies. The application supports user authentication via email or phone number, and utilizes One-Time Passwords (OTP) for secure login.
 
 ## Features
